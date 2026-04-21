@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result | Agribot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-grid"></div>
+    {% include "_app_sidebar.html" %}
+
+    <div class="page-shell page-shell--sidebar">
+        <main class="app-shell app-shell--sidebar">
+            <section class="page-masthead glass-panel" data-reveal>
+                <div>
+                    <p class="eyebrow">Result</p>
+                    <h1 class="form-title">Output</h1>
+                </div>
+                <span class="badge info">View</span>
+            </section>
+
+            <section class="section split-layout">
+                <article class="glass-card result-card" data-reveal>
+                    <p class="eyebrow">Summary</p>
+                    <h3>Result</h3>
+                </article>
+
+                <aside class="stack" data-reveal>
+                    <article class="glass-card info-card">
+                        <div class="quick-links">
+                            <a class="secondary-btn" href="/">Home</a>
+                            <a class="ghost-btn" href="/upload">Scan</a>
+                        </div>
+                    </article>
+                </aside>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

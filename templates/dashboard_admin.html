@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Agribot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-grid"></div>
+    {% include "_admin_sidebar.html" %}
+
+    <div class="page-shell page-shell--sidebar">
+        <main class="dashboard-board" data-admin-dashboard>
+            <section class="dashboard-analytics-grid" id="analytics">
+                <article class="dashboard-visual-card" data-reveal style="grid-column: 1 / -1;">
+                    <div class="analytics-header">
+                        <div>
+                            <p class="eyebrow">Analytics</p>
+                            <h2 class="analytics-title">User and Activity Trends</h2>
+                            <p class="analytics-subtitle">Recent project usage</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-legend">
+                        <span><i class="legend-dot primary"></i>User activity</span>
+                        <span><i class="legend-dot secondary"></i>Project activity</span>
+                    </div>
+
+                    <svg class="analytics-chart" viewBox="0 0 760 320" preserveAspectRatio="none" data-admin-chart aria-label="Admin activity trend chart"></svg>
+
+                    <div class="chart-axis" data-admin-chart-labels></div>
+                </article>
+            </section>
+
+            <section class="dashboard-summary-row" id="user-management">
+                <article class="dashboard-kpi-card" data-reveal data-admin-stat-card>
+                    <p class="dashboard-kpi-value" data-admin-metric="total_users">0</p>
+                    <div class="dashboard-kpi-bar"></div>
+                    <p class="dashboard-kpi-label">Total Users</p>
+                    <p class="dashboard-kpi-meta">Registered active users</p>
+                </article>
+
+                <article class="dashboard-kpi-card" data-reveal data-admin-stat-card>
+                    <p class="dashboard-kpi-value" data-admin-metric="pending_users">0</p>
+                    <div class="dashboard-kpi-bar"></div>
+                    <p class="dashboard-kpi-label">Pending Users</p>
+                    <p class="dashboard-kpi-meta">Awaiting review</p>
+                </article>
+
+                <article class="dashboard-kpi-card" data-reveal data-admin-stat-card>
+                    <p class="dashboard-kpi-value" data-admin-metric="restricted_users">0</p>
+                    <div class="dashboard-kpi-bar"></div>
+                    <p class="dashboard-kpi-label">Restricted Users</p>
+                    <p class="dashboard-kpi-meta">Blocked accounts</p>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

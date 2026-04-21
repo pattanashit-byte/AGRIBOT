@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agribot | Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-grid"></div>
+    {% include "_app_sidebar.html" %}
+
+    <div class="page-shell page-shell--sidebar">
+        <main class="app-shell app-shell--sidebar">
+            <section class="section home-focus-layout">
+                <article class="glass-card form-card home-form-card" data-reveal>
+                    <div class="form-header">
+                        <p class="eyebrow">Crop Prediction</p>
+                        <h2 class="form-title">Enter Details</h2>
+                    </div>
+
+                    <form id="cropForm">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="nitrogen">Nitrogen (N)</label>
+                                <input class="field" id="nitrogen" type="number" name="N" step="any" placeholder="90" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="phosphorus">Phosphorus (P)</label>
+                                <input class="field" id="phosphorus" type="number" name="P" step="any" placeholder="42" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="potassium">Potassium (K)</label>
+                                <input class="field" id="potassium" type="number" name="K" step="any" placeholder="43" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="temperature">Temperature (°C)</label>
+                                <input class="field" id="temperature" type="number" name="temperature" step="any" placeholder="26.4" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="humidity">Humidity (%)</label>
+                                <input class="field" id="humidity" type="number" name="humidity" step="any" placeholder="80.1" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="ph">pH Value</label>
+                                <input class="field" id="ph" type="number" name="ph" step="any" placeholder="6.3" required>
+                            </div>
+                            <div class="input-group full">
+                                <label for="rainfall">Rainfall (mm)</label>
+                                <input class="field" id="rainfall" type="number" name="rainfall" step="any" placeholder="210.6" required>
+                            </div>
+                        </div>
+
+                        <div class="button-row compact mt-4">
+                            <button class="btn" type="submit">Predict</button>
+                            <button class="secondary-btn" type="reset">Clear</button>
+                        </div>
+                    </form>
+
+                    <div class="status-banner" id="cropStatus" role="status" aria-live="polite"></div>
+                </article>
+
+                <article class="glass-card result-card home-result-card" id="result" data-reveal>
+                    <p class="eyebrow">Prediction Complete</p>
+                    <h3>Result</h3>
+                    <p>Submit the form to view the crop recommendation.</p>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

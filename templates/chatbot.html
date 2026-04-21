@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot | Agribot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-grid"></div>
+    {% include "_app_sidebar.html" %}
+
+    <div class="page-shell page-shell--sidebar">
+        <main class="app-shell app-shell--sidebar app-shell--chatbot">
+            <section class="section chat-layout chat-layout--single chat-layout--expanded">
+                <article class="glass-card chatbot-workspace" data-reveal>
+                    <div class="form-header">
+                        <p class="eyebrow">Chatbot</p>
+                        <h2 class="form-title">Agribot Assistant</h2>
+                    </div>
+
+                    <div class="chat-log" id="chatLog" aria-live="polite">
+                        <div class="chat-bubble bot">Hello. Ask your question.</div>
+                    </div>
+
+                    <form id="chatbotForm" class="mt-4">
+                        <div class="input-group">
+                            <label for="userInput">Message</label>
+                            <textarea id="userInput" class="field" placeholder="Type here..." required></textarea>
+                        </div>
+                        <div class="button-row compact mt-4">
+                            <button class="btn" type="submit">Send</button>
+                            <button class="secondary-btn" type="reset">Clear</button>
+                        </div>
+                    </form>
+
+                    <div class="status-banner" id="chatStatus" role="status" aria-live="polite"></div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
