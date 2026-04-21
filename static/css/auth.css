@@ -1,0 +1,78 @@
+@import url("style.css");
+
+/* Authentication pages inherit the shared glass system and only add
+   page-specific layout adjustments here. */
+
+body.auth-page {
+    display: block;
+}
+
+.auth-shell {
+    width: min(100%, 1100px);
+    margin: 0 auto;
+    padding-top: calc(var(--nav-height) + 1rem);
+}
+
+.auth-shell.compact {
+    width: min(100%, 560px);
+}
+
+.auth-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1.05fr);
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.auth-layout.single {
+    grid-template-columns: 1fr;
+}
+
+.auth-showcase,
+.auth-card {
+    padding: clamp(1.35rem, 2.8vw, 1.8rem);
+}
+
+.auth-showcase {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 100%;
+}
+
+.auth-highlights {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.auth-highlight {
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.34);
+    border: 1px solid rgba(255, 255, 255, 0.42);
+}
+
+.auth-card .form-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.auth-card .form-grid {
+    margin-top: 1.2rem;
+}
+
+.auth-footer {
+    margin-top: 1rem;
+    color: var(--text-secondary);
+}
+
+.auth-footer a {
+    color: var(--accent-strong);
+    font-weight: 600;
+}
+
+@media (max-width: 960px) {
+    .auth-layout {
+        grid-template-columns: 1fr;
+    }
+}
