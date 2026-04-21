@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Detection | Agribot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-grid"></div>
+    {% include "_app_sidebar.html" %}
+
+    <div class="page-shell page-shell--sidebar">
+        <main class="app-shell app-shell--sidebar">
+            <section class="page-masthead glass-panel" data-reveal>
+                <div>
+                    <p class="eyebrow">Disease Scan</p>
+                    <h1 class="form-title">Upload Leaf Image</h1>
+                </div>
+                <span class="badge info">Scan</span>
+            </section>
+
+            <section class="section split-layout">
+                <article class="glass-card form-card" data-reveal>
+                    <div class="form-header">
+                        <p class="eyebrow">Upload</p>
+                        <h2 class="form-title">Select File</h2>
+                    </div>
+
+                    <form id="uploadForm" class="stack" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <label for="plant-name">Plant</label>
+                            <select id="plant-name" name="plant_name" class="field" required>
+                                <option value="">Choose plant</option>
+                                {% for plant in supported_plants %}
+                                <option value="{{ plant.value }}">{{ plant.label }}</option>
+                                {% endfor %}
+                                <option value="mung bean">Mung Bean (not supported yet)</option>
+                            </select>
+                            <p class="helper-text">Select the crop first so the scan does not match the image against the wrong plant family.</p>
+                        </div>
+
+                        <div class="upload-picker-zone">
+                            <label class="file-drop" for="plant-image">
+                                <input id="plant-image" type="file" name="file" accept="image/*" required>
+                                <strong>Choose Image</strong>
+                            </label>
+                        </div>
+
+                        <div class="button-row compact mt-4">
+                            <button class="btn" type="submit">Detect</button>
+                            <button class="secondary-btn" type="reset">Reset</button>
+                        </div>
+                    </form>
+
+                    <div class="status-banner" id="uploadStatus" role="status" aria-live="polite"></div>
+                </article>
+
+                <aside class="stack" data-reveal>
+                    <div class="glass-card">
+                        <div class="preview-box" id="imagePreview">
+                            <p class="muted-copy">Preview</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card result-card" id="result">
+                        <p class="eyebrow">Detected Disease</p>
+                        <h3>Select the plant and upload an image to detect the disease.</h3>
+                    </div>
+                </aside>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

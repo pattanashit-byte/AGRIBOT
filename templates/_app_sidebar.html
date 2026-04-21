@@ -1,0 +1,56 @@
+{% set dashboard_path = '/admin-dashboard' if current_user and current_user.role == 'admin' else '/user-dashboard' %}
+<button class="sidebar-trigger" type="button" aria-label="Open navigation" data-sidebar-toggle>
+    <span class="sidebar-trigger-bar"></span>
+</button>
+
+<div class="sidebar-overlay" data-sidebar-overlay></div>
+
+<aside class="app-sidebar" data-sidebar aria-label="Sidebar navigation">
+    <div class="app-sidebar-header">
+        <div class="brand">
+            <div class="brand-mark">A</div>
+            <div class="brand-copy">
+                <h1>AGRIBOT</h1>
+                <p>{{ current_user.name if current_user else 'Workspace' }}</p>
+            </div>
+        </div>
+
+        <button class="sidebar-close" type="button" aria-label="Close navigation" data-sidebar-close>
+            ×
+        </button>
+    </div>
+
+    <section class="app-sidebar-section">
+        <p class="app-sidebar-label">Navigation</p>
+        <nav class="app-sidebar-nav">
+            <a class="app-sidebar-link{% if request.path == dashboard_path %} active{% endif %}" href="{{ dashboard_path }}">
+                <span class="app-sidebar-icon">DB</span>
+                <span>Dashboard</span>
+            </a>
+            <a class="app-sidebar-link{% if request.path == '/' %} active{% endif %}" href="/">
+                <span class="app-sidebar-icon">CP</span>
+                <span>Crop Prediction</span>
+            </a>
+            <a class="app-sidebar-link{% if request.path == '/upload' %} active{% endif %}" href="/upload">
+                <span class="app-sidebar-icon">DS</span>
+                <span>Disease Scan</span>
+            </a>
+            <a class="app-sidebar-link{% if request.path == '/chatbot' or request.path == '/chat' %} active{% endif %}" href="/chatbot">
+                <span class="app-sidebar-icon">CB</span>
+                <span>Chatbot</span>
+            </a>
+        </nav>
+    </section>
+
+    <section class="app-sidebar-section app-sidebar-footer">
+        <p class="app-sidebar-label">Account</p>
+        <div class="app-sidebar-note">
+            <strong>{{ current_user.name if current_user else 'User' }}</strong>
+            <p>{{ current_user.role|title if current_user and current_user.role else 'Member' }}</p>
+        </div>
+        <button class="app-sidebar-link app-sidebar-button" type="button" data-logout-button>
+            <span class="app-sidebar-icon">LO</span>
+            <span>Logout</span>
+        </button>
+    </section>
+</aside>

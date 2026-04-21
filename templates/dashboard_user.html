@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | Agribot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-grid"></div>
+    {% include "_app_sidebar.html" %}
+
+    <div class="page-shell page-shell--sidebar">
+        <main class="user-dashboard-shell" data-user-dashboard>
+            <section class="glass-panel user-dashboard-header" data-reveal>
+                <div>
+                    <p class="eyebrow">Dashboard</p>
+                    <h2 class="form-title">User Workspace</h2>
+                    <p class="muted-copy">Project usage and quick access.</p>
+                </div>
+                <span class="badge success">User</span>
+            </section>
+
+            <section class="user-metrics-grid">
+                <article class="glass-card dashboard-card" data-reveal>
+                    <p class="mini-label">Predictions</p>
+                    <div class="metric-value" data-user-metric="total_predictions">0</div>
+                    <p>Total predictions made</p>
+                </article>
+                <article class="glass-card dashboard-card" data-reveal>
+                    <p class="mini-label">Users</p>
+                    <div class="metric-value" data-user-metric="total_registered_users">0</div>
+                    <p>Total registered users</p>
+                </article>
+                <article class="glass-card dashboard-card" data-reveal>
+                    <p class="mini-label">Scans</p>
+                    <div class="metric-value" data-user-metric="disease_scans_performed">0</div>
+                    <p>Disease scans performed</p>
+                </article>
+                <article class="glass-card dashboard-card" data-reveal>
+                    <p class="mini-label">Chatbot</p>
+                    <div class="metric-value" data-user-metric="chatbot_interactions">0</div>
+                    <p>Chatbot interactions</p>
+                </article>
+            </section>
+
+            <section class="user-modules-grid">
+                <article class="glass-card user-module-card" data-reveal>
+                    <p class="eyebrow">Crop Prediction</p>
+                    <h3>Predict the next crop</h3>
+                    <p>Open the main form and run a recommendation.</p>
+                    <a class="secondary-btn" href="/">Open</a>
+                </article>
+                <article class="glass-card user-module-card" data-reveal>
+                    <p class="eyebrow">Disease Scan</p>
+                    <h3>Scan leaf images</h3>
+                    <p>Upload a plant image for disease detection.</p>
+                    <a class="secondary-btn" href="/upload">Open</a>
+                </article>
+                <article class="glass-card user-module-card" data-reveal>
+                    <p class="eyebrow">Chatbot</p>
+                    <h3>Ask the assistant</h3>
+                    <p>Use the chatbot for crop and disease help.</p>
+                    <a class="secondary-btn" href="/chatbot">Open</a>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
