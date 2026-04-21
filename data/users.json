@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Admin",
+    "city": "System",
+    "email": "admin@agribot.local",
+    "username": "admin",
+    "password_hash": "scrypt:32768:8:1$jdObAtdGYYyitlrC$6f9cd8e208a0f1c6e5a809b357b366aa1ccb989bf69be05ac4110aea4a59de5b28f628cf9a35883dedf51a50689655da6ffd159d8338591e19522843f0a7495d",
+    "role": "admin",
+    "status": "active"
+  },
+  {
+    "name": "Ashok Sharma",
+    "city": "Mandya",
+    "email": "ashok345@gmail.com",
+    "username": "ashok345",
+    "password_hash": "scrypt:32768:8:1$XA4BEv1CqDjXRLkR$8cbe216a5cdea04e671736b29fa7c943708116fb4859c6ef7f7d80b54c0556866830d78f18998f6cb5f38a217538daf8041d23f5b4c024b681757f425e863785",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "name": "Rahul",
+    "city": "Ballari",
+    "email": "ash789@gmail.com",
+    "username": "ash789",
+    "password_hash": "scrypt:32768:8:1$GPRvT1dqL1huF1e3$b1a39bd261aee86473b7b66e4118ab22d84bbf027c9d56b0990fb80d38151e047ce73e1e886d18df63a94f53a30942e750d6fc5ff5b30205b9add1043533a0a2",
+    "role": "user",
+    "status": "active"
+  }
+]

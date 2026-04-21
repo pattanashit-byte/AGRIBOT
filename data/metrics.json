@@ -1,0 +1,59 @@
+{
+  "counters": {
+    "predictions": 15,
+    "disease_scans": 112,
+    "chatbot_interactions": 10,
+    "logins": 19,
+    "registrations": 1
+  },
+  "history": [
+    {
+      "date": "2026-04-04",
+      "predictions": 0,
+      "disease_scans": 0,
+      "chatbot_interactions": 1,
+      "logins": 6,
+      "registrations": 1
+    },
+    {
+      "date": "2026-04-10",
+      "predictions": 1,
+      "disease_scans": 91,
+      "chatbot_interactions": 0,
+      "logins": 9,
+      "registrations": 0
+    },
+    {
+      "date": "2026-04-13",
+      "predictions": 13,
+      "disease_scans": 13,
+      "chatbot_interactions": 8,
+      "logins": 3,
+      "registrations": 0
+    },
+    {
+      "date": "2026-04-15",
+      "predictions": 1,
+      "disease_scans": 1,
+      "chatbot_interactions": 1,
+      "logins": 1,
+      "registrations": 0
+    },
+    {
+      "date": "2026-04-18",
+      "predictions": 0,
+      "disease_scans": 6,
+      "chatbot_interactions": 0,
+      "logins": 0,
+      "registrations": 0
+    },
+    {
+      "date": "2026-04-21",
+      "predictions": 0,
+      "disease_scans": 1,
+      "chatbot_interactions": 0,
+      "logins": 0,
+      "registrations": 0
+    }
+  ]
+}
