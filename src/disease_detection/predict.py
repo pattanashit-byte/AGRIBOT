@@ -3,7 +3,7 @@ import numpy as np
 import os
 import sys
 
-BASE_DIR = "/Users/ashit/Desktop/MINI_PROJECT/AGRIBOT"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(BASE_DIR)
 
 from utils.disease_labels import get_best_disease_for_plant, get_disease_name

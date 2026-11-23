@@ -26,6 +26,7 @@ def get_user_status_counts():
 def user_metrics():
     metrics = load_metrics()
     counts = get_user_status_counts()
+    trends = build_recent_trends()
 
     return jsonify({
         "status": "success",
@@ -33,7 +34,10 @@ def user_metrics():
             "total_predictions": metrics["counters"].get("predictions", 0),
             "total_registered_users": counts["total_users"],
             "disease_scans_performed": metrics["counters"].get("disease_scans", 0),
-            "chatbot_interactions": metrics["counters"].get("chatbot_interactions", 0)
+            "chatbot_interactions": metrics["counters"].get("chatbot_interactions", 0),
+            "activity_labels": trends["labels"],
+            "activity_series": trends["activity_series"],
+            "login_series": trends["login_series"]
         }
     })
 

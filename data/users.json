@@ -25,5 +25,32 @@
     "password_hash": "scrypt:32768:8:1$GPRvT1dqL1huF1e3$b1a39bd261aee86473b7b66e4118ab22d84bbf027c9d56b0990fb80d38151e047ce73e1e886d18df63a94f53a30942e750d6fc5ff5b30205b9add1043533a0a2",
     "role": "user",
     "status": "active"
+  },
+  {
+    "name": "Prajwal M",
+    "city": "Bellary",
+    "email": "mprajwal827@gmail.com",
+    "username": "prajwal_m",
+    "password_hash": "scrypt:32768:8:1$2Q2p70JMZBn4ehqt$52e49c81207e3882697b697153e7246bc42647a16fea363df96709b32d474672e9182ecf51507a5223c9f8092f850c4e20639ad105beac798fc6c4a0616dfee5",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "name": "Raam",
+    "city": "Bengaluru",
+    "email": "raam29@gmail.com",
+    "username": "ram",
+    "password_hash": "scrypt:32768:8:1$cdMIsJFoNGQ5X5D0$579e35dce6bec3d39c91f60edf309244944e2454d6cae57ce820e5bd70e8fad5de62cb16582ef83b89f5d778155247769d3315f217dcd428feacec0e426de860",
+    "role": "user",
+    "status": "active"
+  },
+  {
+    "name": "TEST",
+    "city": "Bengaluru",
+    "email": "test@gmail.com",
+    "username": "test",
+    "password_hash": "scrypt:32768:8:1$ze2inwGH9eyujAAw$e017f954d60f4023b943f8c66385bb824dce7117909c032124c8f681d55d11da18a42eaa49c8d26ff57a1566890c474ed074fa0f36e0cafc3a6cf7e347d39ba1",
+    "role": "user",
+    "status": "active"
   }
 ]

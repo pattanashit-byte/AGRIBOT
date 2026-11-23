@@ -5,6 +5,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot | Agribot</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* ── Formatted bot reply ────────────────────────────────────── */
+        .chat-bubble.bot { white-space: pre-wrap; }
+        
+        /* ── Custom Chat Input Design ───────────────────────────────── */
+        .chat-preview-bar {
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.34);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.48);
+        }
+        .chat-preview-bar.active {
+            display: flex;
+        }
+        .chat-preview-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 6px;
+            display: none;
+        }
+        .chat-preview-img.active {
+            display: block;
+        }
+        #chatImageName {
+            flex: 1;
+            font-size: 0.85rem;
+            color: var(--text-secondary, rgba(24, 48, 68, 0.7));
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .chat-image-clear {
+            background: none;
+            border: none;
+            color: #f87171;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.25rem;
+            display: none;
+            transition: transform 0.2s;
+        }
+        .chat-image-clear:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-input-container {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.44);
+            border-radius: 999px;
+            padding: 0.35rem 0.5rem 0.35rem 1rem;
+            gap: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: inset 0 2px 4px rgba(24, 48, 68, 0.04);
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+        .chat-input-container:focus-within {
+            border-color: var(--accent, #1f8f67);
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 0 0 3px rgba(31, 143, 103, 0.15);
+        }
+        
+        .chat-attach-icon {
+            cursor: pointer;
+            color: var(--text-secondary, rgba(24, 48, 68, 0.7));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem;
+            transition: color 0.2s;
+        }
+        .chat-attach-icon:hover {
+            color: var(--accent, #1f8f67);
+        }
+        
+        .chat-field {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-primary, #183044);
+            font-size: 1rem;
+            outline: none;
+            padding: 0.5rem 0;
+            font-family: inherit;
+        }
+        .chat-field::placeholder {
+            color: var(--text-muted, rgba(24, 48, 68, 0.56));
+        }
+        
+        .chat-send-btn {
+            background: #4ade80;
+            color: #111;
+            border: none;
+            border-radius: 999px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s, background-color 0.2s;
+        }
+        .chat-send-btn:hover {
+            transform: scale(1.05);
+            background: #22c55e;
+        }
+        .chat-send-btn svg {
+            margin-left: -2px; /* slight visual alignment */
+        }
+        
+        /* ── Chat preview thumbnail ─────────────────────────────────── */
+        .chat-img-preview {
+            width: 180px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <div class="background-grid"></div>
@@ -20,17 +146,33 @@
                     </div>
 
                     <div class="chat-log" id="chatLog" aria-live="polite">
-                        <div class="chat-bubble bot">Hello. Ask your question.</div>
+                        <div class="chat-bubble bot">Hi! I am Agribot 🌱 Ask me about plant diseases or upload a leaf image for diagnosis.</div>
                     </div>
 
                     <form id="chatbotForm" class="mt-4">
-                        <div class="input-group">
-                            <label for="userInput">Message</label>
-                            <textarea id="userInput" class="field" placeholder="Type here..." required></textarea>
+                        <!-- Image Preview Bar (Hidden until image selected) -->
+                        <div class="chat-preview-bar" id="chatPreviewBar">
+                            <img id="chatPreviewImg" class="chat-preview-img" src="" alt="Preview">
+                            <span id="chatImageName"></span>
+                            <button type="button" class="chat-image-clear" id="chatImageClear" title="Remove image">✕</button>
                         </div>
-                        <div class="button-row compact mt-4">
-                            <button class="btn" type="submit">Send</button>
-                            <button class="secondary-btn" type="reset">Clear</button>
+
+                        <!-- Integrated Input Bar -->
+                        <div class="chat-input-container">
+                            <label class="chat-attach-icon" for="chatImageInput" title="Upload a leaf image">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                                </svg>
+                                <input type="file" id="chatImageInput" accept="image/*" style="display: none;">
+                            </label>
+                            
+                            <input type="text" id="userInput" class="chat-field" placeholder="Ask anything" autocomplete="off">
+                            
+                            <button type="submit" id="chatSendBtn" class="chat-send-btn" title="Send">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                  <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm-3.611-1.751 3.613-1.751 7.494-7.494-11.107 9.245Z"/>
+                                </svg>
+                            </button>
                         </div>
                     </form>
 

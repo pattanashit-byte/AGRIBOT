@@ -34,7 +34,7 @@
                 <span class="app-sidebar-icon">AN</span>
                 <span>Analytics</span>
             </a>
-            <a class="app-sidebar-link" href="/">
+            <a class="app-sidebar-link{% if request.path == '/crop-prediction' %} active{% endif %}" href="/crop-prediction">
                 <span class="app-sidebar-icon">CP</span>
                 <span>Crop Prediction</span>
             </a>

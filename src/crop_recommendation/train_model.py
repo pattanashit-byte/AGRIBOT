@@ -6,7 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score
 
-BASE_DIR = "/Users/ashit/Desktop/MINI_PROJECT/AGRIBOT"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def train_crop_model():
     # Load cleaned data

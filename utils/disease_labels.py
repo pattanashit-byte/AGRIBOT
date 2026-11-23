@@ -2,7 +2,7 @@ import os
 import re
 
 
-BASE_DIR = "/Users/ashit/Desktop/MINI_PROJECT/AGRIBOT"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DISEASE_DATASET_DIR = os.path.join(
     BASE_DIR,
     "dataset",

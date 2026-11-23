@@ -3,7 +3,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 
-BASE_DIR = "/Users/ashit/Desktop/MINI_PROJECT/AGRIBOT"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def visualize(df):
     print("\n📊 Generating Visualizations...")

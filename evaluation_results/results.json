@@ -1,0 +1,12 @@
+{
+  "model": "disease_model.h5",
+  "preprocessing": "rgb255",
+  "number_of_classes": 38,
+  "test_images": 10861,
+  "test_accuracy_percent": 93.08,
+  "macro_precision_percent": 92.36,
+  "macro_recall_percent": 90.59,
+  "macro_f1_percent": 90.66,
+  "avg_inference_ms_model_only": 24.1,
+  "avg_inference_ms_with_preprocessing": 24.9
+}

@@ -1,74 +1,849 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agribot | Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title>Agribot | Smart Agriculture</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css', v='6') }}"
+    >
+       <link rel="stylesheet" href="{{ url_for('static', filename='css/weather-ui.css', v='1') }}">
 </head>
+
+
 <body>
+
     <div class="background-grid"></div>
+
     {% include "_app_sidebar.html" %}
 
+
     <div class="page-shell page-shell--sidebar">
+
         <main class="app-shell app-shell--sidebar">
+
             <section class="section home-focus-layout">
-                <article class="glass-card form-card home-form-card" data-reveal>
-                    <div class="form-header">
-                        <p class="eyebrow">Crop Prediction</p>
-                        <h2 class="form-title">Enter Details</h2>
+
+
+                <!-- =====================================================
+                     WEATHER / LOCATION SECTION
+                ====================================================== -->
+
+                <article
+                    class="glass-card"
+                    id="weatherSection"
+                    data-reveal
+                >
+
+                    <!-- LOCATION PERMISSION STATE -->
+
+                    <div
+                        id="locationPermission"
+                        class="weather-location-state"
+                    >
+
+                        <div class="weather-location-icon">
+                            📍
+                        </div>
+
+                        <div class="weather-location-content">
+
+                            <p class="eyebrow">
+                                Real-Time Farm Intelligence
+                            </p>
+
+                            <h2 class="form-title">
+                                Enable Location
+                            </h2>
+
+                            <p class="form-description">
+                                Agribot needs your location to retrieve
+                                real-time weather conditions and provide
+                                location-specific farming advisories.
+                            </p>
+
+                            <button
+                                type="button"
+                                class="btn"
+                                id="enableLocationBtn"
+                            >
+                                📍 Enable Location
+                            </button>
+
+                            <div
+                                class="status-banner"
+                                id="locationStatus"
+                                role="status"
+                                aria-live="polite"
+                            ></div>
+
+                        </div>
+
                     </div>
 
-                    <form id="cropForm">
-                        <div class="form-grid">
-                            <div class="input-group">
-                                <label for="nitrogen">Nitrogen (N)</label>
-                                <input class="field" id="nitrogen" type="number" name="N" step="any" placeholder="90" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="phosphorus">Phosphorus (P)</label>
-                                <input class="field" id="phosphorus" type="number" name="P" step="any" placeholder="42" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="potassium">Potassium (K)</label>
-                                <input class="field" id="potassium" type="number" name="K" step="any" placeholder="43" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="temperature">Temperature (°C)</label>
-                                <input class="field" id="temperature" type="number" name="temperature" step="any" placeholder="26.4" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="humidity">Humidity (%)</label>
-                                <input class="field" id="humidity" type="number" name="humidity" step="any" placeholder="80.1" required>
-                            </div>
-                            <div class="input-group">
-                                <label for="ph">pH Value</label>
-                                <input class="field" id="ph" type="number" name="ph" step="any" placeholder="6.3" required>
-                            </div>
-                            <div class="input-group full">
-                                <label for="rainfall">Rainfall (mm)</label>
-                                <input class="field" id="rainfall" type="number" name="rainfall" step="any" placeholder="210.6" required>
-                            </div>
+
+                    <!-- LOCATION LOADING STATE -->
+
+                    <div
+                        id="locationLoading"
+                        class="weather-location-state"
+                        style="display: none;"
+                    >
+
+                        <div class="weather-location-icon">
+                            ⏳
                         </div>
+
+                        <div class="weather-location-content">
+
+                            <p class="eyebrow">
+                                Detecting Location
+                            </p>
+
+                            <h2 class="form-title">
+                                Getting your location...
+                            </h2>
+
+                            <p class="form-description">
+                                Please allow location access in your
+                                browser when prompted.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WEATHER DASHBOARD -->
+
+                    <div
+                        id="weatherDashboard"
+                        style="display: none;"
+                    >
+
+                        <!-- LOCATION HEADER -->
+
+                        <div class="form-header">
+
+                            <p class="eyebrow">
+                                Live Weather Intelligence
+                            </p>
+
+                            <h2 class="form-title">
+                                <span id="weatherLocationName">
+                                    Your Location
+                                </span>
+                            </h2>
+
+                            <p class="form-description">
+
+                                Live weather conditions and forecast-based
+                                insights for agricultural decision making.
+
+                            </p>
+
+                            <p
+                                id="weatherUpdated"
+                                class="weather-updated"
+                            >
+                                Updating weather...
+                            </p>
+
+                        </div>
+
+
+                        <!-- CURRENT WEATHER -->
+
+                        <div class="weather-vitals-grid">
+
+
+                            <!-- Temperature -->
+
+                            <div class="weather-vital-card">
+
+                                <div class="weather-vital-icon">
+                                    🌡️
+                                </div>
+
+                                <div>
+
+                                    <span class="weather-vital-label">
+                                        Temperature
+                                    </span>
+
+                                    <strong
+                                        id="weatherTemperature"
+                                        class="weather-vital-value"
+                                    >
+                                        --
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Feels Like -->
+
+                            <div class="weather-vital-card">
+
+                                <div class="weather-vital-icon">
+                                    🌡️
+                                </div>
+
+                                <div>
+
+                                    <span class="weather-vital-label">
+                                        Feels Like
+                                    </span>
+
+                                    <strong
+                                        id="weatherFeelsLike"
+                                        class="weather-vital-value"
+                                    >
+                                        --
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Humidity -->
+
+                            <div class="weather-vital-card">
+
+                                <div class="weather-vital-icon">
+                                    💧
+                                </div>
+
+                                <div>
+
+                                    <span class="weather-vital-label">
+                                        Humidity
+                                    </span>
+
+                                    <strong
+                                        id="weatherHumidity"
+                                        class="weather-vital-value"
+                                    >
+                                        --
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Rain -->
+
+                            <div class="weather-vital-card">
+
+                                <div class="weather-vital-icon">
+                                    🌧️
+                                </div>
+
+                                <div>
+
+                                    <span class="weather-vital-label">
+                                        Rainfall
+                                    </span>
+
+                                    <strong
+                                        id="weatherRainfall"
+                                        class="weather-vital-value"
+                                    >
+                                        --
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Rain Probability -->
+
+                            <div class="weather-vital-card">
+
+                                <div class="weather-vital-icon">
+                                    ☔
+                                </div>
+
+                                <div>
+
+                                    <span class="weather-vital-label">
+                                        Rain Chance
+                                    </span>
+
+                                    <strong
+                                        id="weatherRainChance"
+                                        class="weather-vital-value"
+                                    >
+                                        --
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Wind -->
+
+                            <div class="weather-vital-card">
+
+                                <div class="weather-vital-icon">
+                                    💨
+                                </div>
+
+                                <div>
+
+                                    <span class="weather-vital-label">
+                                        Wind Speed
+                                    </span>
+
+                                    <strong
+                                        id="weatherWind"
+                                        class="weather-vital-value"
+                                    >
+                                        --
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Wind Gust -->
+
+                            <div class="weather-vital-card">
+
+                                <div class="weather-vital-icon">
+                                    🌬️
+                                </div>
+
+                                <div>
+
+                                    <span class="weather-vital-label">
+                                        Wind Gust
+                                    </span>
+
+                                    <strong
+                                        id="weatherWindGust"
+                                        class="weather-vital-value"
+                                    >
+                                        --
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- UV -->
+
+                            <div class="weather-vital-card">
+
+                                <div class="weather-vital-icon">
+                                    ☀️
+                                </div>
+
+                                <div>
+
+                                    <span class="weather-vital-label">
+                                        UV Index
+                                    </span>
+
+                                    <strong
+                                        id="weatherUV"
+                                        class="weather-vital-value"
+                                    >
+                                        --
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Cloud Cover -->
+
+                            <div class="weather-vital-card">
+
+                                <div class="weather-vital-icon">
+                                    ☁️
+                                </div>
+
+                                <div>
+
+                                    <span class="weather-vital-label">
+                                        Cloud Cover
+                                    </span>
+
+                                    <strong
+                                        id="weatherCloud"
+                                        class="weather-vital-value"
+                                    >
+                                        --
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Pressure -->
+
+                            <div class="weather-vital-card">
+
+                                <div class="weather-vital-icon">
+                                    🧭
+                                </div>
+
+                                <div>
+
+                                    <span class="weather-vital-label">
+                                        Pressure
+                                    </span>
+
+                                    <strong
+                                        id="weatherPressure"
+                                        class="weather-vital-value"
+                                    >
+                                        --
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =================================================
+                             FARMER ADVISORY
+                        ================================================== -->
+
+                        <div class="weather-advisory-section">
+
+                            <div class="form-header">
+
+                                <p class="eyebrow">
+                                    Agricultural Intelligence
+                                </p>
+
+                                <h3>
+                                    ⚠️ Farmer Weather Advisory
+                                </h3>
+
+                                <p class="form-description">
+                                    These insights are generated from
+                                    the live weather conditions and forecast
+                                    for your location.
+                                </p>
+
+                            </div>
+
+
+                            <div
+                                id="farmerAdvisories"
+                                class="farmer-advisories"
+                            >
+
+                                <div class="weather-advisory-loading">
+
+                                    Analyzing current weather conditions...
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             7 DAY FORECAST
+                        ================================================== -->
+
+                        <div class="weather-forecast-section">
+
+                            <div class="form-header">
+
+                                <p class="eyebrow">
+                                    Weather Outlook
+                                </p>
+
+                                <h3>
+                                    📅 7-Day Forecast
+                                </h3>
+
+                            </div>
+
+
+                            <div
+                                id="weatherForecast"
+                                class="weather-forecast-grid"
+                            >
+
+                                <div class="weather-advisory-loading">
+                                    Loading forecast...
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- LOCATION RETRY -->
 
                         <div class="button-row compact mt-4">
-                            <button class="btn" type="submit">Predict</button>
-                            <button class="secondary-btn" type="reset">Clear</button>
+
+                            <button
+                                type="button"
+                                class="secondary-btn"
+                                id="refreshWeatherBtn"
+                            >
+                                🔄 Refresh Weather
+                            </button>
+
                         </div>
+
+                    </div>
+
+
+                    <!-- LOCATION ERROR -->
+
+                    <div
+                        id="locationError"
+                        class="weather-location-state"
+                        style="display: none;"
+                    >
+
+                        <div class="weather-location-icon">
+                            ⚠️
+                        </div>
+
+                        <div class="weather-location-content">
+
+                            <p class="eyebrow">
+                                Location Required
+                            </p>
+
+                            <h2 class="form-title">
+                                Unable to access your location
+                            </h2>
+
+                            <p
+                                class="form-description"
+                                id="locationErrorMessage"
+                            >
+                                Please allow location access in your
+                                browser settings.
+                            </p>
+
+                            <button
+                                type="button"
+                                class="btn"
+                                id="retryLocationBtn"
+                            >
+                                📍 Try Again
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- =====================================================
+                     EXISTING CROP INPUT FORM
+                ====================================================== -->
+
+                <article
+                    class="glass-card form-card home-form-card"
+                    data-reveal
+                >
+
+                    <div class="form-header">
+
+                        <p class="eyebrow">
+                            AI Crop Recommendation
+                        </p>
+
+                        <h2 class="form-title">
+                            Enter Soil & Climate Details
+                        </h2>
+
+                        <p class="form-description">
+
+                            Provide the soil nutrients and environmental
+                            conditions to get the most suitable crop
+                            recommendations.
+
+                        </p>
+
+                    </div>
+
+
+                    <form id="cropForm">
+
+                        <div class="form-grid">
+
+
+                            <!-- Nitrogen -->
+
+                            <div class="input-group">
+
+                                <label for="nitrogen">
+                                    Nitrogen (N)
+                                </label>
+
+                                <input
+                                    class="field"
+                                    id="nitrogen"
+                                    type="number"
+                                    name="N"
+                                    step="any"
+                                    min="0"
+                                    placeholder="90"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- Phosphorus -->
+
+                            <div class="input-group">
+
+                                <label for="phosphorus">
+                                    Phosphorus (P)
+                                </label>
+
+                                <input
+                                    class="field"
+                                    id="phosphorus"
+                                    type="number"
+                                    name="P"
+                                    step="any"
+                                    min="0"
+                                    placeholder="42"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- Potassium -->
+
+                            <div class="input-group">
+
+                                <label for="potassium">
+                                    Potassium (K)
+                                </label>
+
+                                <input
+                                    class="field"
+                                    id="potassium"
+                                    type="number"
+                                    name="K"
+                                    step="any"
+                                    min="0"
+                                    placeholder="43"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- Temperature -->
+
+                            <div class="input-group">
+
+                                <label for="temperature">
+                                    Temperature (°C)
+                                </label>
+
+                                <input
+                                    class="field"
+                                    id="temperature"
+                                    type="number"
+                                    name="temperature"
+                                    step="any"
+                                    placeholder="26.4"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- Humidity -->
+
+                            <div class="input-group">
+
+                                <label for="humidity">
+                                    Humidity (%)
+                                </label>
+
+                                <input
+                                    class="field"
+                                    id="humidity"
+                                    type="number"
+                                    name="humidity"
+                                    step="any"
+                                    min="0"
+                                    max="100"
+                                    placeholder="80.1"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- pH -->
+
+                            <div class="input-group">
+
+                                <label for="ph">
+                                    Soil pH
+                                </label>
+
+                                <input
+                                    class="field"
+                                    id="ph"
+                                    type="number"
+                                    name="ph"
+                                    step="any"
+                                    min="0"
+                                    max="14"
+                                    placeholder="6.3"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <!-- Rainfall -->
+
+                            <div class="input-group full">
+
+                                <label for="rainfall">
+                                    Rainfall (mm)
+                                </label>
+
+                                <input
+                                    class="field"
+                                    id="rainfall"
+                                    type="number"
+                                    name="rainfall"
+                                    step="any"
+                                    min="0"
+                                    placeholder="210.6"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Buttons -->
+
+                        <div class="button-row compact mt-4">
+
+                            <button
+                                class="btn"
+                                id="predictCropBtn"
+                                type="submit"
+                            >
+                                🌱 Predict Crops
+                            </button>
+
+                            <button
+                                class="secondary-btn"
+                                type="reset"
+                            >
+                                Clear
+                            </button>
+
+                        </div>
+
                     </form>
 
-                    <div class="status-banner" id="cropStatus" role="status" aria-live="polite"></div>
+
+                    <!-- Status -->
+
+                    <div
+                        class="status-banner"
+                        id="cropStatus"
+                        role="status"
+                        aria-live="polite"
+                    ></div>
+
                 </article>
 
-                <article class="glass-card result-card home-result-card" id="result" data-reveal>
-                    <p class="eyebrow">Prediction Complete</p>
-                    <h3>Result</h3>
-                    <p>Submit the form to view the crop recommendation.</p>
+
+
+                <!-- =====================================================
+                     EXISTING RESULT SECTION
+                ====================================================== -->
+
+                <article
+                    class="glass-card result-card home-result-card"
+                    id="result"
+                    data-reveal
+                >
+
+                    <div class="crop-empty-state">
+
+                        <div class="crop-empty-icon">
+                            🌾
+                        </div>
+
+                        <p class="eyebrow">
+                            AI Crop Analysis
+                        </p>
+
+                        <h3>
+                            Your Recommendations
+                        </h3>
+
+                        <p>
+
+                            Enter your soil and environmental conditions
+                            and click <strong>Predict Crops</strong> to
+                            receive the top crop recommendations.
+
+                        </p>
+
+                    </div>
+
                 </article>
+
+
             </section>
+
         </main>
+
     </div>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+    <!-- =========================================================
+         EXISTING JAVASCRIPT
+    ========================================================== -->
+
+    <script
+        src="{{ url_for('static', filename='js/main.js', v='5') }}"
+        defer
+    ></script>
+
 </body>
+
 </html>

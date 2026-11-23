@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 import os
 
-BASE_DIR = "/Users/ashit/Desktop/MINI_PROJECT/AGRIBOT"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def split_data(df):
     X = df.drop('label', axis=1)

@@ -1,10 +1,10 @@
 {
   "counters": {
-    "predictions": 15,
-    "disease_scans": 112,
-    "chatbot_interactions": 10,
-    "logins": 19,
-    "registrations": 1
+    "predictions": 48,
+    "disease_scans": 172,
+    "chatbot_interactions": 70,
+    "logins": 44,
+    "registrations": 4
   },
   "history": [
     {
@@ -52,6 +52,62 @@
       "predictions": 0,
       "disease_scans": 1,
       "chatbot_interactions": 0,
+      "logins": 0,
+      "registrations": 0
+    },
+    {
+      "date": "2026-04-23",
+      "predictions": 4,
+      "disease_scans": 7,
+      "chatbot_interactions": 31,
+      "logins": 5,
+      "registrations": 0
+    },
+    {
+      "date": "2026-04-24",
+      "predictions": 1,
+      "disease_scans": 4,
+      "chatbot_interactions": 2,
+      "logins": 5,
+      "registrations": 0
+    },
+    {
+      "date": "2026-10-05",
+      "predictions": 23,
+      "disease_scans": 12,
+      "chatbot_interactions": 14,
+      "logins": 8,
+      "registrations": 1
+    },
+    {
+      "date": "2026-10-14",
+      "predictions": 2,
+      "disease_scans": 25,
+      "chatbot_interactions": 5,
+      "logins": 4,
+      "registrations": 1
+    },
+    {
+      "date": "2026-10-16",
+      "predictions": 0,
+      "disease_scans": 2,
+      "chatbot_interactions": 1,
+      "logins": 1,
+      "registrations": 0
+    },
+    {
+      "date": "2026-10-31",
+      "predictions": 2,
+      "disease_scans": 7,
+      "chatbot_interactions": 4,
+      "logins": 2,
+      "registrations": 1
+    },
+    {
+      "date": "2026-11-05",
+      "predictions": 1,
+      "disease_scans": 3,
+      "chatbot_interactions": 3,
       "logins": 0,
       "registrations": 0
     }

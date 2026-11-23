@@ -2,7 +2,7 @@ import joblib
 import os
 import numpy as np
 
-BASE_DIR = "/Users/ashit/Desktop/MINI_PROJECT/AGRIBOT"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def predict_crop(input_data):
     model_path = os.path.join(BASE_DIR, "models/saved_model/crop_model.pkl")

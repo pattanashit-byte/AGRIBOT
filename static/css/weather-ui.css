@@ -1,0 +1,418 @@
+/* ==========================================================================
+   AGRIBOT - Weather + crop page layout polish
+   Load AFTER style.css. Safe to delete this file to go back to the old look.
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. PAGE LAYOUT
+   Weather spans the full width; the crop form and results sit side by side
+   underneath it.
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 1051px) {
+    .home-focus-layout {
+        grid-template-columns: minmax(340px, 0.8fr) minmax(0, 1.2fr);
+        gap: 1.5rem;
+        align-items: start;
+    }
+}
+
+#weatherSection {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+    padding: 1.75rem;
+}
+
+/* The fixed hamburger button no longer sits on top of the content. */
+@media (min-width: 900px) {
+    .page-shell--sidebar {
+        padding-left: 5.75rem;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   2. TYPOGRAPHY (the old headings were far too large inside cards)
+   -------------------------------------------------------------------------- */
+
+.home-focus-layout .form-title,
+#weatherSection .form-title {
+    font-size: clamp(1.55rem, 2.2vw, 2.05rem);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+}
+
+.home-focus-layout .form-description {
+    max-width: 52ch;
+    font-size: 0.95rem;
+}
+
+.home-result-card h3 {
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+}
+
+.crop-empty-state {
+    min-height: 360px;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. WEATHER: LOCATION STATES (enable / loading / error)
+   -------------------------------------------------------------------------- */
+
+#weatherSection .weather-location-state {
+    padding: 2.5rem 1.5rem;
+}
+
+#weatherSection .weather-location-content {
+    max-width: 640px;
+}
+
+#weatherSection .weather-location-icon {
+    width: 4.25rem;
+    height: 4.25rem;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(31, 143, 103, 0.18), rgba(47, 128, 196, 0.16));
+}
+
+#weatherSection button:focus-visible {
+    outline: 3px solid rgba(47, 128, 196, 0.5);
+    outline-offset: 3px;
+}
+
+
+/* --------------------------------------------------------------------------
+   4. WEATHER DASHBOARD GRID
+   banner on top, readings left, advisories right, forecast across the bottom
+   -------------------------------------------------------------------------- */
+
+#weatherDashboard {
+    position: relative;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-areas:
+        "header   header"
+        "vitals   advisory"
+        "forecast forecast";
+    gap: 1.5rem;
+}
+
+#weatherDashboard > .form-header         { grid-area: header; }
+#weatherDashboard > .weather-vitals-grid { grid-area: vitals; }
+#weatherDashboard > .weather-advisory-section { grid-area: advisory; }
+#weatherDashboard > .weather-forecast-section { grid-area: forecast; }
+
+
+/* --- Banner ------------------------------------------------------------- */
+
+#weatherDashboard > .form-header {
+    margin: 0;
+    min-height: 9rem;
+    padding: 1.6rem 1.75rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+        "title meta"
+        "desc  meta";
+    column-gap: 1.5rem;
+    row-gap: 0.35rem;
+    align-content: end;
+    border-radius: 26px;
+    color: #f4fbff;
+    background:
+        radial-gradient(circle at 88% 0%, rgba(255, 255, 255, 0.24), transparent 42%),
+        linear-gradient(135deg, #1f8f67 0%, #2a8aa8 55%, #2f6fc4 100%);
+    box-shadow: 0 22px 46px rgba(31, 95, 105, 0.2);
+}
+
+#weatherDashboard > .form-header .eyebrow {
+    display: none;
+}
+
+#weatherDashboard > .form-header .form-title {
+    grid-area: title;
+    margin: 0;
+    color: #fff;
+}
+
+#weatherDashboard > .form-header .form-description {
+    grid-area: desc;
+    max-width: 46ch;
+    margin: 0;
+    color: rgba(244, 251, 255, 0.84);
+}
+
+#weatherDashboard > .form-header .weather-updated {
+    grid-area: meta;
+    align-self: end;
+    margin: 0;
+    text-align: right;
+    white-space: pre-line;
+    font-size: 0.84rem;
+    line-height: 1.55;
+    color: rgba(244, 251, 255, 0.86);
+}
+
+/* Refresh button lives in the banner's top-right corner. */
+#weatherDashboard > .button-row {
+    position: absolute;
+    top: 1.15rem;
+    right: 1.4rem;
+    z-index: 2;
+    margin: 0;
+    display: block;
+}
+
+#weatherDashboard #refreshWeatherBtn {
+    min-height: 2.4rem;
+    padding: 0 1rem;
+    font-size: 0.86rem;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+#weatherDashboard #refreshWeatherBtn:hover {
+    background: rgba(255, 255, 255, 0.26);
+    box-shadow: none;
+}
+
+
+/* --- Readings: two columns of horizontal tiles ---------------------------- */
+
+#weatherDashboard .weather-vitals-grid {
+    margin: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    align-content: start;
+}
+
+#weatherDashboard .weather-vital-card {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-width: 0;
+    padding: 0.8rem 1rem;
+    border-radius: 18px;
+}
+
+#weatherDashboard .weather-vital-card:hover {
+    transform: none;
+    box-shadow: 0 12px 28px rgba(53, 88, 114, 0.08);
+}
+
+#weatherDashboard .weather-vital-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: 0;
+    flex-shrink: 0;
+    border-radius: 14px;
+    font-size: 1.2rem;
+}
+
+#weatherDashboard .weather-vital-card > div:last-child {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+#weatherDashboard .weather-vital-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+#weatherDashboard .weather-vital-value {
+    margin: 0;
+    white-space: nowrap;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+/* Icon tint by meaning: heat, water, wind, sun, sky */
+#weatherDashboard .weather-vital-card:nth-child(1) .weather-vital-icon,
+#weatherDashboard .weather-vital-card:nth-child(2) .weather-vital-icon { background: rgba(240, 140, 70, 0.18); }
+
+#weatherDashboard .weather-vital-card:nth-child(3) .weather-vital-icon,
+#weatherDashboard .weather-vital-card:nth-child(4) .weather-vital-icon,
+#weatherDashboard .weather-vital-card:nth-child(5) .weather-vital-icon { background: rgba(47, 128, 196, 0.16); }
+
+#weatherDashboard .weather-vital-card:nth-child(6) .weather-vital-icon,
+#weatherDashboard .weather-vital-card:nth-child(7) .weather-vital-icon { background: rgba(31, 143, 103, 0.16); }
+
+#weatherDashboard .weather-vital-card:nth-child(8) .weather-vital-icon { background: rgba(236, 183, 84, 0.28); }
+
+#weatherDashboard .weather-vital-card:nth-child(9) .weather-vital-icon,
+#weatherDashboard .weather-vital-card:nth-child(10) .weather-vital-icon { background: rgba(100, 116, 139, 0.16); }
+
+
+/* --- Advisories ----------------------------------------------------------- */
+
+#weatherDashboard .weather-advisory-section,
+#weatherDashboard .weather-forecast-section {
+    margin: 0;
+}
+
+#weatherDashboard .weather-advisory-section {
+    align-self: start;
+}
+
+#weatherDashboard .weather-advisory-section .eyebrow,
+#weatherDashboard .weather-forecast-section .eyebrow {
+    display: none;
+}
+
+#weatherDashboard .weather-advisory-section .form-header,
+#weatherDashboard .weather-forecast-section .form-header {
+    margin-bottom: 0.85rem;
+}
+
+#weatherDashboard .weather-advisory-section h3,
+#weatherDashboard .weather-forecast-section h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+}
+
+#weatherDashboard .weather-advisory-section .form-description {
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+}
+
+#weatherDashboard .farmer-advisories {
+    gap: 0.7rem;
+}
+
+#weatherDashboard .farmer-advisory {
+    padding: 0.9rem 1rem;
+    border-radius: 18px;
+    border-left: 4px solid transparent;
+}
+
+#weatherDashboard .farmer-advisory.warning { border-left-color: #d0525f; }
+#weatherDashboard .farmer-advisory.info    { border-left-color: #2f80c4; }
+#weatherDashboard .farmer-advisory.good    { border-left-color: #1f8f67; }
+
+
+/* --- 7-day forecast ------------------------------------------------------- */
+
+#weatherDashboard #weatherForecast {
+    grid-template-columns: repeat(7, minmax(112px, 1fr));
+    gap: 0.65rem;
+    padding-bottom: 0.4rem;
+    scroll-snap-type: x proximity;
+}
+
+#weatherDashboard .weather-forecast-card {
+    min-width: 0;
+    padding: 1rem 0.6rem;
+    border-radius: 20px;
+    scroll-snap-align: start;
+}
+
+#weatherDashboard .weather-forecast-card:hover {
+    transform: none;
+}
+
+/* Today is the first card */
+#weatherDashboard .weather-forecast-card:first-child {
+    border-color: rgba(31, 143, 103, 0.34);
+    background: linear-gradient(160deg, rgba(31, 143, 103, 0.17), rgba(47, 128, 196, 0.12));
+}
+
+#weatherDashboard .weather-forecast-card:first-child .forecast-day::after {
+    content: " (today)";
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--accent-strong);
+}
+
+#weatherDashboard .forecast-day {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+#weatherDashboard .forecast-icon {
+    margin: 0.55rem 0;
+    font-size: 2.1rem;
+}
+
+#weatherDashboard .forecast-temperature {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+#weatherDashboard .forecast-rain {
+    color: var(--info);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+#weatherDashboard .forecast-rain-amount {
+    color: var(--text-muted);
+    font-size: 0.74rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   5. RESPONSIVE
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1000px) {
+
+    #weatherDashboard {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "header"
+            "vitals"
+            "advisory"
+            "forecast";
+    }
+
+    #weatherDashboard > .form-header {
+        min-height: 0;
+        padding-top: 4rem;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "title"
+            "desc"
+            "meta";
+    }
+
+    #weatherDashboard > .form-header .weather-updated {
+        margin-top: 0.6rem;
+        text-align: left;
+    }
+}
+
+@media (max-width: 560px) {
+
+    #weatherSection {
+        padding: 1rem;
+    }
+
+    #weatherDashboard .weather-vital-card {
+        gap: 0.6rem;
+        padding: 0.7rem 0.75rem;
+    }
+
+    #weatherDashboard .weather-vital-icon {
+        width: 2.2rem;
+        height: 2.2rem;
+        font-size: 1rem;
+    }
+
+    #weatherDashboard .weather-vital-value {
+        font-size: 1.05rem;
+    }
+}

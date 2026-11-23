@@ -13,23 +13,42 @@
     <div class="page-shell page-shell--sidebar">
         <main class="dashboard-board" data-admin-dashboard>
             <section class="dashboard-analytics-grid" id="analytics">
-                <article class="dashboard-visual-card" data-reveal style="grid-column: 1 / -1;">
+                <article class="dashboard-visual-card" data-reveal>
                     <div class="analytics-header">
-                        <div>
-                            <p class="eyebrow">Analytics</p>
-                            <h2 class="analytics-title">User and Activity Trends</h2>
-                            <p class="analytics-subtitle">Recent project usage</p>
-                        </div>
+                        <h2 class="analytics-title">Problem Solving</h2>
                     </div>
 
                     <div class="chart-legend">
-                        <span><i class="legend-dot primary"></i>User activity</span>
-                        <span><i class="legend-dot secondary"></i>Project activity</span>
+                        <span><i class="legend-dot primary"></i>Problem solving Without Bot Interaction</span>
+                        <span><i class="legend-dot secondary"></i>Problem solving With Bot Interaction</span>
                     </div>
 
-                    <svg class="analytics-chart" viewBox="0 0 760 320" preserveAspectRatio="none" data-admin-chart aria-label="Admin activity trend chart"></svg>
+                    <svg class="analytics-chart" viewBox="0 0 760 320" preserveAspectRatio="none" data-admin-chart aria-label="Problem solving trend chart"></svg>
 
                     <div class="chart-axis" data-admin-chart-labels></div>
+                </article>
+
+                <article class="dashboard-visual-card" data-reveal>
+                    <div class="feedback-header">
+                        <h2 class="feedback-title">User's Feedback About Bot</h2>
+                    </div>
+                    
+                    <div class="feedback-donut"></div>
+                    
+                    <div class="feedback-list">
+                        <div class="feedback-row">
+                            <span><i class="legend-dot primary"></i>Positive</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="feedback-row">
+                            <span><i class="legend-dot" style="background: rgba(214, 229, 247, 0.78);"></i>Neutral</span>
+                            <span>25%</span>
+                        </div>
+                        <div class="feedback-row">
+                            <span><i class="legend-dot" style="background: rgba(191, 211, 231, 0.52);"></i>Negative</span>
+                            <span>15%</span>
+                        </div>
+                    </div>
                 </article>
             </section>
 

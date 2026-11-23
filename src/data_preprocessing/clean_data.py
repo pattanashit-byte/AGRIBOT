@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-BASE_DIR = "/Users/ashit/Desktop/MINI_PROJECT/AGRIBOT"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def clean_data(df):
     print("\n🔍 Checking Missing Values:\n")

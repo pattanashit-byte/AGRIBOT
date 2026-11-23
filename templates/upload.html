@@ -4,7 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Disease Detection | Agribot</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v='7') }}">
+
+    <style>
+        /* Small additions for the scan result popup */
+        #modalMeta { display: grid; gap: 0.45rem; margin-top: 1rem; }
+        #modalMeta:empty { display: none; }
+        .result-confidence { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-secondary); }
+        .result-source { font-size: 0.8rem; color: var(--text-muted); }
+        .result-alternatives { font-size: 0.82rem; color: var(--text-secondary); }
+        #modalSolutions h4 { margin: 0.9rem 0 0.2rem; font-size: 0.95rem; }
+        #modalSolutions ul { margin: 0.3rem 0 0.6rem 1.1rem; padding: 0; line-height: 1.65; }
+        .advice-text { white-space: pre-wrap; line-height: 1.65; margin: 0.6rem 0 0; }
+        .scan-tips { margin: 0; padding-left: 1.1rem; color: var(--text-secondary); line-height: 1.7; }
+        #modalActions { margin-top: 1rem; }
+        #modalActions:empty { display: none; }
+        .preview-box img { height: auto; max-height: 24rem; object-fit: contain; }
+    </style>
 </head>
 <body>
     <div class="background-grid"></div>
@@ -14,8 +30,8 @@
         <main class="app-shell app-shell--sidebar">
             <section class="page-masthead glass-panel" data-reveal>
                 <div>
-                    <p class="eyebrow">Disease Scan</p>
-                    <h1 class="form-title">Upload Leaf Image</h1>
+                    <h1 style="font-size: 2rem; font-weight: 700; color: var(--text-primary); margin: 0.25rem 0 0;">Upload Leaf Image</h1>
+                    <p class="muted-copy" style="margin: 0.4rem 0 0;">Choose the plant, add a clear photo of one leaf, and Agribot will check it for disease.</p>
                 </div>
                 <span class="badge info">Scan</span>
             </section>
@@ -23,8 +39,7 @@
             <section class="section split-layout">
                 <article class="glass-card form-card" data-reveal>
                     <div class="form-header">
-                        <p class="eyebrow">Upload</p>
-                        <h2 class="form-title">Select File</h2>
+                        <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0;">Select Image</h2>
                     </div>
 
                     <form id="uploadForm" class="stack" enctype="multipart/form-data">
@@ -35,7 +50,7 @@
                                 {% for plant in supported_plants %}
                                 <option value="{{ plant.value }}">{{ plant.label }}</option>
                                 {% endfor %}
-                                <option value="mung bean">Mung Bean (not supported yet)</option>
+                                <option value="mung bean" disabled>Mung Bean (not supported yet)</option>
                             </select>
                             <p class="helper-text">Select the crop first so the scan does not match the image against the wrong plant family.</p>
                         </div>
@@ -44,11 +59,12 @@
                             <label class="file-drop" for="plant-image">
                                 <input id="plant-image" type="file" name="file" accept="image/*" required>
                                 <strong>Choose Image</strong>
+                                <p class="helper-text">JPG, PNG or WebP, up to 10 MB</p>
                             </label>
                         </div>
 
                         <div class="button-row compact mt-4">
-                            <button class="btn" type="submit">Detect</button>
+                            <button class="btn" id="detectBtn" type="submit">Detect</button>
                             <button class="secondary-btn" type="reset">Reset</button>
                         </div>
                     </form>
@@ -63,15 +79,44 @@
                         </div>
                     </div>
 
-                    <div class="glass-card result-card" id="result">
-                        <p class="eyebrow">Detected Disease</p>
-                        <h3>Select the plant and upload an image to detect the disease.</h3>
+                    <div class="glass-card" style="padding: 1.2rem;">
+                        <h3 style="margin: 0 0 0.5rem;">Tips for an accurate scan</h3>
+                        <ul class="scan-tips">
+                            <li>Photograph one leaf and fill most of the frame.</li>
+                            <li>Use daylight; avoid shadows, flash glare and filters.</li>
+                            <li>Keep the leaf in focus on a plain background.</li>
+                            <li>Pick the matching plant above before scanning.</li>
+                        </ul>
                     </div>
                 </aside>
             </section>
         </main>
     </div>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- Disease Result Modal -->
+    <div id="diseaseModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-content glass-card">
+            <button id="closeModalBtn" class="modal-close" type="button" aria-label="Close result">&times;</button>
+            <div class="modal-header">
+                <p class="eyebrow" id="modalBadge">Scan result</p>
+                <h2 id="modalTitle" class="form-title" style="margin-top: 0.5rem; font-size: 1.9rem; line-height: 1.15; color: var(--accent-strong);"></h2>
+                <p id="modalDescription" class="muted-copy"></p>
+                <div id="modalMeta"></div>
+            </div>
+            <div class="modal-body stack mt-4">
+                <div id="modalCausesSection" style="display: none;">
+                    <h3>About this issue</h3>
+                    <p id="modalCauses" style="line-height: 1.6;"></p>
+                </div>
+                <div id="modalSolutionsSection" style="display: none; margin-top: 1rem;">
+                    <h3 id="modalSolutionsTitle">Treatment and prevention</h3>
+                    <div id="modalSolutions" style="line-height: 1.6;"></div>
+                </div>
+                <div id="modalActions"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js', v='7') }}"></script>
 </body>
 </html>

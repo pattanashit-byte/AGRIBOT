@@ -27,6 +27,14 @@ async function setupUserDashboard() {
         const key = element.dataset.userMetric;
         element.textContent = data[key] ?? 0;
     });
+
+    renderAdminChart(
+        root.querySelector("[data-user-chart]"),
+        root.querySelector("[data-user-chart-labels]"),
+        data.activity_labels || ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+        data.activity_series || [3, 2, 7, 5, 6, 4, 5, 4, 6, 3], // fallback sample user data
+        data.login_series || [7, 5, 14, 8, 12, 6, 10, 6, 11, 4]  // fallback sample user data
+    );
 }
 
 async function setupAdminDashboard() {
